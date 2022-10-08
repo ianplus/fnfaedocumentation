@@ -14,7 +14,97 @@
     </style>
   </head>
   <body>
-    <p> normalText </p>
-    ----------------
+    <p> 
+      warning: this page is still in an early stage of development
+      -------------------------------------------------------------------------------
+      Sprite Animations
+      -------------------------------------------------------------------------------
+      to be able to animate correctly in "fnf ae" there are certain things to follow:
+      the indexbases are so to speak "keynames" which predetermine which movement of the sprite
+
+      character name + indexbase + frame(number)
+
+      example: "bf_up2"
+      // bf (name), _up (indexbase), 2 (frame)
+
+      the indexbase for the enemy character are:
+      _idle
+      _left
+      _down
+      _up
+      _right
+      _pose
+
+      for the player character they are the same indexbase but with more additions:
+      _leftfail
+      _downfail
+      _upfail
+      _rightfail
+      _pose
+      
+      -------------------------------------------------------------------------------
+      Basic Charting
+      -------------------------------------------------------------------------------
+      in the charting part there are 3 types of objects
+      - arrows // {key,side,holdnote,delay}
+      - cameras // {"#cam",delay} or {"#customCam",X,Y,delay}
+      - events // {"@example","string",delay}
+
+      ## arrows
+      // Key
+      - 1 | left-key
+      - 2 | downkey
+      - 3 | up key
+      - 4 | right key
+      // side
+      - 0 | the arrow will go to the player
+      - 1 | the arrow will go to the enemy
+      - 2 | the arrow will go to both
+      - 3 | the arrow will go to both but the player's arrow will go the other way, example:
+      - current enemy arrow: 1
+      - player current arrow: 4 (opposite)
+      // hold note
+      it is for how long you want it to have to be pressed after touching the arrow (it is measured in quantity not in duration)
+
+      // delay
+      when the arrow has to appear (it is not measured in milliseconds like in other fnf engines like kade, psych or modding+)
+
+      ## cameras
+      -/ Default cameras /-
+      // "#camIn"
+      the camera will focus on the player
+      // "#camOut"
+      the camera will focus on the enemy
+      // "#camMid"
+      the camera will be between the player and the enemy (basically 0x, 0y)
+
+      ------------------
+      // delay
+      It is also the same as with the arrows, it is not measured in milliseconds
+
+      -/Customizable camera/-
+
+      This is a bit different from the default ones since in this one to let the "chartHandler" know that it is a camera that is going to point to a different side than the defaults (for example, outside the map) you have to use this: "#camCustom "
+      There will also be extra parameters like "x" and "y" (positions) next to the "delay" (I don't want to repeat what it is anymore)
+
+      ## events
+      in this the same modder will have to add the events that he wants in his chart by directly modifying the game code.
+      the same there are already predetermined events to facilitate said function
+
+      // "@example"
+      in this instead of "@example" the following events could go
+
+      - "@changeskinbot" | change the enemy sprite
+      - "@changeskinplr" | change player sprite
+      - "@changeskingf" | change the girlfriend sprite (this one doesn't work.)
+      - "@bindable" | you send the "string"
+
+      // "string"
+      this is an attribute for events
+      if it is a "changeskin" it will act as a sprite name, if it is a "bindable" it will act as a message to the game to execute a function
+
+      ## Here is an example chart
+    </p>
+    {{"@changeskinbot","skin",0},{"#camOut",0},{3,0,1,0},{3,0,1,0.1875},{"@bindable","Player_Pose",12}}
   </body>
 </html>
